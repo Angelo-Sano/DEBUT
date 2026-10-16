@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Loan Management System</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="login.css">
+
+</head>
+
+
+<body>
+
+
+<div class="login-page">
+
+
+    <!-- LEFT SIDE -->
+
+    <div class="login-left">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+
+            </div>
+
+            <h1>Loan Manager</h1>
+
+            <p>Loan Management System</p>
+
+        </div>
+
+
+        <div class="welcome-text">
+
+            <h2>Manage Your Loans Easily</h2>
+
+            <p>
+                Keep track of clients, loans, payments and
+                outstanding balances from one simple system.
+            </p>
+
+        </div>
+
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+                <div>
+                    <strong>Client Management</strong>
+                    <span>Manage all your clients</span>
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+
+                <div>
+                    <strong>Loan Records</strong>
+                    <span>Track what clients owe</span>
+                </div>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    <i class="fa-solid fa-money-bill-transfer"></i>
+                </div>
+
+                <div>
+                    <strong>Payments</strong>
+                    <span>Record and monitor payments</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="login-right">
+
+
+        <div class="login-card">
+
+
+            <div class="mobile-logo">
+
+                <div class="mobile-logo-icon">
+
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+
+                </div>
+
+                <h2>Loan Manager</h2>
+
+            </div>
+
+
+            <div class="login-heading">
+
+                <h2>Welcome Back</h2>
+
+                <p>
+                    Sign in to access your admin dashboard
+                </p>
+
+            </div>
+
+
+            <!-- ERROR MESSAGE -->
+
+            <div
+                class="error-message"
+                id="errorMessage"
+            >
+
+                <i class="fa-solid fa-circle-exclamation"></i>
+
+                <span>
+                    Invalid username or password.
+                </span>
+
+            </div>
+
+
+            <!-- LOGIN FORM -->
+
+            <form
+                action="login.php"
+                method="POST"
+                id="loginForm"
+            >
+
+
+                <!-- USERNAME -->
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter your username"
+                            autocomplete="username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                            aria-label="Show password"
+                        >
+
+                            <i
+                                class="fa-solid fa-eye"
+                                id="passwordIcon"
+                            ></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- REMEMBER -->
+
+                <div class="login-options">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            name="remember"
+                        >
+
+                        <span>Remember me</span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-btn"
+                >
+
+                    <span>Login</span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+
+            </form>
+
+
+            <div class="login-footer">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Admin access only
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    const icon =
+        document.getElementById("passwordIcon");
+
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+        icon.classList.remove("fa-eye");
+
+        icon.classList.add("fa-eye-slash");
+
+    } else {
+
+        password.type = "password";
+
+        icon.classList.remove("fa-eye-slash");
+
+        icon.classList.add("fa-eye");
+
+    }
+
+}
+
+
+// SHOW ERROR IF URL CONTAINS ?error=1
+
+const params =
+    new URLSearchParams(window.location.search);
+
+if (params.get("error") === "1") {
+
+    document
+        .getElementById("errorMessage")
+        .classList.add("show");
+
+}
+
+
+// Remove error when user starts typing
+
+document
+    .getElementById("username")
+    .addEventListener("input", hideError);
+
+document
+    .getElementById("password")
+    .addEventListener("input", hideError);
+
+
+function hideError() {
+
+    document
+        .getElementById("errorMessage")
+        .classList.remove("show");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
